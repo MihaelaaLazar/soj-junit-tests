@@ -17,31 +17,30 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 // Se va utiliza adnotarea @MethodSource.
 class ComputationUtilsTest {
 
-    @MethodSource("getParams")
+    @MethodSource("getArgs")
     @ParameterizedTest(name = "Test sum {0} + {1} = {2}")
     void shouldSumTwoNumbers(int a, int b, int expectedSum) {
         assertThat(sum(a, b)).isEqualTo(expectedSum);
     }
 
-    @MethodSource("getParamsWithMinMax")
-    @ParameterizedTest(name = "Test sum {0} + {1} = {2}")
-    void shouldThrowException(int a, int b, int ignoredValue){
+    @MethodSource("invalidArgs")
+    @ParameterizedTest(name = "Test sum {0} + {1} \u21D2 Overflow")
+    void shouldThrowException(int a, int b){
         assertThatThrownBy(() -> sum(a, b))
                 .isInstanceOf(ArithmeticException.class)
                 .hasMessage("Overflow while computing the sum");
     }
 
-    static Stream<Arguments> getParams() {
+    static Stream<Arguments> getArgs() {
         return Stream.of(
                 Arguments.of(1, 2, 3),
                 Arguments.of(2, 2, 4),
                 Arguments.of(3, 2, 5)
         );
     }
-    static Stream<Arguments> getParamsWithMinMax() {
+    static Stream<Arguments> invalidArgs() {
         return Stream.of(
-                Arguments.of(1, Integer.MAX_VALUE, Integer.MAX_VALUE + 1),
-                Arguments.of(Integer.MIN_VALUE, -1, Integer.MIN_VALUE + (-1))
-        );
+                Arguments.of(Integer.MAX_VALUE, 1),
+                Arguments.of(Integer.MIN_VALUE, -1));
     }
 }

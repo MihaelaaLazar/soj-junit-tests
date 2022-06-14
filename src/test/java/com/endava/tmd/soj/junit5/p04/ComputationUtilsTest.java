@@ -1,7 +1,7 @@
 package com.endava.tmd.soj.junit5.p04;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +62,7 @@ class ComputationUtilsTest {
 
     @Test
     void maxIntAndANegativeNumber() {
-        assertThat(sum(Integer.MAX_VALUE, -1)).isEqualTo(Integer.MAX_VALUE - 1);
+        assertThat(sum(Integer.MAX_VALUE, -1)).isEqualTo(2147483646);
     }
 
     @Test
@@ -72,7 +72,7 @@ class ComputationUtilsTest {
 
     @Test
     void minIntAndAPositiveNumber() {
-        assertThat(sum(Integer.MIN_VALUE, 1)).isEqualTo(Integer.MIN_VALUE + 1);
+        assertThat(sum(Integer.MIN_VALUE, 1)).isEqualTo(-2147483647);
     }
 
     @Test
@@ -81,9 +81,9 @@ class ComputationUtilsTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     void whatToDoWhenSumExceedsMaxIntegerValue() {
-        assertThat(sum(Integer.MAX_VALUE, 1)).isEqualTo(Integer.MAX_VALUE + 1);
+        assertThat(sum(Integer.MAX_VALUE, 2)).isEqualTo(2147483649L);
     }
 
 }

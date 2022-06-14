@@ -10,8 +10,6 @@ package com.endava.tmd.soj.junit5.p01;
 import org.junit.jupiter.api.*;
 
 import static com.endava.tmd.soj.junit5.p01.ComputationUtils.sum;
-
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ComputationUtilsTest {

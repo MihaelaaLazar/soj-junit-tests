@@ -1,6 +1,7 @@
 package com.endava.tmd.soj.junit5.p05.s3;
 
-import org.junit.Ignore;
+import com.endava.tmd.soj.junit5.p01.ComputationUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -56,33 +57,33 @@ class ComputationUtilsTest {
     }
     @Test
     void zeroShouldNotChangeMaxInt() {
-        assertThat(sum(0, Integer.MAX_VALUE)).isEqualTo(Integer.MAX_VALUE);
+        assertThat(ComputationUtils.sum(0, Integer.MAX_VALUE)).isEqualTo(Integer.MAX_VALUE);
     }
 
     @Test
     void maxIntAndANegativeNumber() {
-        assertThat(sum(Integer.MAX_VALUE, -1)).isEqualTo(Integer.MAX_VALUE - 1);
+        assertThat(ComputationUtils.sum(Integer.MAX_VALUE, -1)).isEqualTo(2147483646);
     }
 
     @Test
     void zeroShouldNotChangeMinInt() {
-        assertThat(sum(0, Integer.MIN_VALUE)).isEqualTo(Integer.MIN_VALUE);
+        assertThat(ComputationUtils.sum(0, Integer.MIN_VALUE)).isEqualTo(Integer.MIN_VALUE);
     }
 
     @Test
     void minIntAndAPositiveNumber() {
-        assertThat(sum(Integer.MIN_VALUE, 1)).isEqualTo(Integer.MIN_VALUE + 1);
+        assertThat(ComputationUtils.sum(Integer.MIN_VALUE, 1)).isEqualTo(-2147483647);
     }
 
     @Test
     void minIntAndMaxInt() {
-        assertThat(sum(Integer.MIN_VALUE, Integer.MAX_VALUE)).isEqualTo(Integer.MIN_VALUE + Integer.MAX_VALUE);
+        assertThat(ComputationUtils.sum(Integer.MIN_VALUE, Integer.MAX_VALUE)).isEqualTo(Integer.MIN_VALUE + Integer.MAX_VALUE);
     }
 
     @Test
-    @Ignore
+    @Disabled
     void whatToDoWhenSumExceedsMaxIntegerValue() {
-        assertThatThrownBy(() -> sum(Integer.MAX_VALUE, 1)).isInstanceOf(ArithmeticException.class);
+        assertThat(ComputationUtils.sum(Integer.MAX_VALUE, 2)).isEqualTo(2147483649L);
     }
 
     @DisplayName("2147483647 + 1 \u21D2 Overflow")

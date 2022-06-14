@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class ComputationUtilsTest {
 
     @ParameterizedTest(name = "Test sum {0} + {1} = {2}")
-    @CsvSource({"1, 2, 3", "2, 2, 4", "3, 2, 5"})
+    @CsvSource({"1, 2, 3", "2, 2, 4", "3, 2, 5" , "4, 2, 6", "-2147483648, 2, -2147483646"})
     void shouldSumTwoNumbers(int a, int b, int expectedSum) {
         assertThat(sum(a, b)).isEqualTo(expectedSum);
     }

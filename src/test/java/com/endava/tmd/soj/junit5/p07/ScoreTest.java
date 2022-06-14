@@ -1,13 +1,12 @@
 package com.endava.tmd.soj.junit5.p07;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.text.NumberFormat;
 import java.util.Locale;
 
-import static java.lang.Double.parseDouble;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // Provocare: definiti cel putin 3 teste pentru clasa care tine scorul
@@ -20,6 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ScoreTest {
     Score score = new Score();
 
+    @BeforeAll
+    static void setLocale() {
+        Locale.setDefault(Locale.US);
+    }
+
     @AfterEach
     void tearDown() {
         score = null;
@@ -30,31 +34,20 @@ class ScoreTest {
     }
 
     @Test
+    void noAnswer(){
+        assertThat(score.getPercent()).isEqualTo("100.0");
+    }
+    @Test
+    void noOneIncorrectAnswer() {
+        score.addCorrectAnswer();
+        assertThat(score.getPercent()).isEqualTo("100.0");
+    }
+
+    @Test
     void shouldReturn33_3() {
         score.addCorrectAnswer();
         score.addIncorrectAnswer();
         score.addIncorrectAnswer();
         assertThat(score.getPercent()).isEqualTo("33.3");
-    }
-
-    @Test
-    void shouldReturn33_3_RegardlessOfLocale() {
-        //get the default locale from the system environment variables and set it to the current locale
-        Locale locale = Locale.getDefault();
-        String lang = locale.getLanguage();
-        String country = locale.getCountry();
-        Locale currentLocale = new Locale(lang, country);
-        Locale.setDefault(currentLocale);
-
-        //add correct answers and incorrect answers
-        score.addCorrectAnswer();
-        score.addIncorrectAnswer();
-        score.addIncorrectAnswer();
-
-        NumberFormat numberFormatted = NumberFormat.getInstance(currentLocale);
-        String actualValue = numberFormatted.format(parseDouble(score.getPercent().replace(",", ".")));
-
-        assertThat(score.getPercent()).isEqualTo(actualValue);
-
     }
 }
